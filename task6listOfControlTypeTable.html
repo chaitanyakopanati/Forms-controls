@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ControlType Table</title>
+    <link rel="stylesheet" href="task6listofForms.css"></link>
+</head>
+<body>
+    <div style="margin: 10px;">
+    <div style="display: flex;justify-content: space-between;">
+        <button type="button" onclick="window.location.href='task6listOfFormTable.html'">Back To Forms</button>   
+        <button type="button" onclick="window.location.href='index.html'">Add</button></div>
+        <!-- <button type="button" onclick="window.open('task6listOfControlarForm.html')">Add</button></div> -->
+        <h2>List of ControlType Table</h2>
+            <table border="1px solid"style='border-collapse: collapse;'>
+                <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Form.No</th>
+            <th>Control Name</th>
+            <th>Control Type</th>
+            <th>Control Position</th>
+            <th>Control Attrtibutes</th>
+            <th>Is Required</th>
+            <th colspan="2">Action</th>
+        </tr>
+                </thead>
+                <tbody id="formBodyData" style="margin: 20px;padding: 10px;text-align: center;">
+                  
+                </tbody>
+            </table>
+        </div>
+            <script>
+               
+ 
+// let fetchstoredDataControls = JSON.parse(localStorage.getItem('controlsData'))||[];
+// let editIndexElement = JSON.parse(localStorage.getItem('editFormData'))||[];
+
+
+ 
+
+
+
+// fetchstoredDataControls = fetchstoredDataControls.filter(el => el.FormName === editIndexElement.FormName);
+// console.log("fetchstoredDataControls",fetchstoredDataControls)
+// let formBodyData = document.getElementById('formBodyData');
+// formBodyData.style.margin='10px'
+// formBodyData.style.padding='10px'
+// let renderFormBodyData = () => {
+//     formBodyData.innerHTML = '';
+//     fetchstoredDataControls.forEach((ele, ind) => {
+//         console.log(ele,"ele")
+//         let row = document.createElement('tr');
+//         row.style.margin='20px'
+//         row.style.padding='10px'
+//         row.innerHTML = `
+//             <th>${ind+1}.</th>
+//             <td>${ele.FormName || ''}</td>
+//             <td>${ele.Controls[0].ControlName || ''}</td>
+//             <td>${ele.Controls[0].ControlType || ''}</td>
+//             <td>${ele.Controls[0].ControlPosition || ''}</td>
+//             <td>${ele.Controls[0].Attribute|| ''}</td>
+//             <td>${ele.Controls[0].IsRequired|| ''}</td>
+//             <td><button onclick="editForm(${ele.Id})">Edit</button></td>
+//             <td><button onclick="deleteForm(${ele.Id})">Delete</button></td>
+//         `;
+//         formBodyData.appendChild(row);
+//     });
+// };
+//         let editForm = (index) => {
+//            console.log(index,'indexedit')
+//             let singleData = fetchstoredDataControls.find((ele, i) => ele.Id == index);
+            
+            
+//             if (singleData) {
+//                 localStorage.setItem('editFormData', JSON.stringify(singleData));
+//                 window.location.href = `task6listOfControlarForm.html?editIndex=${index}`;
+//             }
+           
+//             console.log(singleData,"singleData")
+//         };
+//         let deleteForm = (index) => {
+//     console.log(index,"index")
+//    // fetchstoredDataControls = fetchstoredDataControls.filter((_, i) => i !== index);
+//     if (confirm("Are you sure you want to delete this form?")) {
+// if(index===undefined||index===null){
+//         fetchstoredDataControls.splice(index, 1);
+//         //fetchstoredDataControls = fetchstoredDataControls.filter((el) =>{
+//         // console.log("ele",el.Id)
+//         //  el.Id !== index});
+//         localStorage.setItem('controlsData', JSON.stringify(fetchstoredDataControls));
+//         renderFormBodyData();
+// }
+//     }
+// };
+       
+
+
+
+          
+// renderFormBodyData();
+
+let fetchstoredDataControls = JSON.parse(localStorage.getItem('controlsData')) || [];
+
+let editIndexElement = JSON.parse(localStorage.getItem('editFormData')) || [];
+if(editIndexElement!==null){
+fetchstoredDataControls = fetchstoredDataControls.filter(el => el.FormName === editIndexElement.FormName);
+}
+
+console.log("fetchstoredDataControls", fetchstoredDataControls);
+
+let formBodyData = document.getElementById('formBodyData');
+formBodyData.style.margin = '10px';
+formBodyData.style.padding = '10px';
+
+let renderFormBodyData = () => {
+    formBodyData.innerHTML = '';
+    fetchstoredDataControls.forEach((form, ind) => {
+        let row = document.createElement('tr');
+        row.style.margin = '20px';
+        row.style.padding = '10px';
+        
+        
+        let controls = form.Controls;
+
+       
+        controls.forEach((control, controlInd) => {
+            let controlRow = document.createElement('tr');
+            controlRow.innerHTML = `
+                <th>${controlInd + 1}</th>
+                <td>${form.FormName || ''}</td>
+                <td>${control.ControlName || ''}</td>
+                <td>${control.ControlType || ''}</td>
+                <td>${control.ControlPosition || ''}</td>
+                <td>${control.Attribute || ''}</td>
+                <td>${control.IsRequired || ''}</td>
+                <td><button onclick="editForm(${control.Id})">Edit</button></td>
+                <td><button onclick="deleteForm(${control.Id})">Delete</button></td>
+            `;
+            formBodyData.appendChild(controlRow);
+        });
+    });
+};
+
+let editForm = (index) => {
+    console.log(index, 'indexedit');
+    let singleData = null;
+
+   
+    for (let i = 0; i < fetchstoredDataControls.length; i++) {
+        let form = fetchstoredDataControls[i];
+        for (let j = 0; j < form.Controls.length; j++) {
+            let control = form.Controls[j];
+            if (control.Id == index) {
+                singleData = control;
+                break;
+            }
+        }
+        if (singleData) {
+            break;
+        }
+    }
+
+    console.log(singleData, "singleData");
+    if (singleData) {
+        localStorage.setItem('editFormData', JSON.stringify(singleData));
+        window.location.href = `index.html?editIndex=${index}`;
+    } else {
+        console.error("Control with ID " + index + " not found.");
+    }
+};
+
+
+// let deleteForm = (index) => {
+//     console.log(index, "index");
+//     if (confirm("Are you sure you want to delete this form?")) {
+//         if (index === undefined || index === null) {
+//             fetchstoredDataControls.splice(index, 1);
+//             localStorage.setItem('controlsData', JSON.stringify(fetchstoredDataControls));
+//             renderFormBodyData();
+//         }
+//     }
+// };
+
+
+let deleteForm = (index) => {
+    let fetchstoredDataControls = JSON.parse(localStorage.getItem('controlsData')) || [];
+    console.log("editIndexElement1",editIndexElement)
+    console.log(index, "index");
+    if (confirm("Are you sure you want to delete this form?")) {
+        if (index !== undefined && index !== null) {
+            for (let i = 0; i < fetchstoredDataControls.length; i++) {
+                let form = fetchstoredDataControls[i];
+                for (let j = 0; j < form.Controls.length; j++) {
+                    let control = form.Controls[j];
+                    if (control.Id == index) {
+                        form.Controls.splice(j, 1); 
+                        if (form.Controls.length === 0) {
+                            fetchstoredDataControls.splice(i, 1); 
+                        }
+                        localStorage.setItem('controlsData', JSON.stringify(fetchstoredDataControls));
+                        renderFormBodyData();
+                        window.location.href = `task6listOfControlTypeTable.html`
+                    }
+                }
+            }
+        } else {
+            console.error("Invalid index provided for deletion.");
+        }
+    }
+};
+
+
+
+
+renderFormBodyData();
+
+            </script>
+            
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Controlar Form</title>
+    <link rel="stylesheet" href="task6listofForms.css"></link>
+</head>
+<body>
+    <div id="container">
+        <div style="display: flex;justify-content: end;margin: 10px;">
+            <button type="button" onclick="window.location.href='task6listOfFormTable.html'">Close</button>   
+        </div>
+    <div style="display: flex;justify-content: center;">
+        <form action="" id="controlevnt">
+            <label for="formname">Form Name</label><br>
+            <input type="text" name="formname" id="formname" placeholder="Enter Form Name" /><br>
+            <p id="formname_error" class="error"></p>
+            <p id="formname_success"  class="success" ></p><br>
+            <button type="submit" style="margin: 10px;" id ="addId">Add</button>&nbsp;&nbsp;
+            <!-- <button type="button" id ="updateId" onclick="updateForm()" hidden>Update</button>&nbsp;&nbsp; -->
+            <button type="button" onclick="reset()">Reset</button>
+        </form>
+    </div>
+</div>
+<script src="task6listOfControlarForm.js"></script>
+</body>
+</html>

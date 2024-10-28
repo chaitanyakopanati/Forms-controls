@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Controlar Form</title>
+        <link rel="stylesheet" href="task6listofForms.css"></link>
+    </head>
+    <body>
+        <div id="container">
+        <div style="display: flex;justify-content: space-between;margin: 10px;">
+            <button type="button" onclick="window.location.href='task6listOfControlTypeTable.html'" id="backButton">Back To Controls</button>
+            <button type="button" onclick="window.location.href='task6listOfFormTable.html'">Close</button>     
+           </div>
+        <div style="display: flex;justify-content: center;">
+        <form action="" id="controlevntt">
+            <label for="formname">Form Name</label><br>
+            <input type="text" name="formname" id="formname"  placeholder="Enter Form Name" /><br>
+            <p id="formname_error" class="error"></p>
+            <p id="formname_success"  class="success" ></p><br>
+            <label for="controlname">Control Name</label><br>
+            <input type="text" name="controlname" id="controlname" placeholder="Enter Control Name" /><br>
+    <p id="controlname_error" class="error"></p>
+      <p id="controlname_success" class="success"></p><br>  
+            <label for="controls">Select a Cotrol Type:</label><br>
+            <select id="cntrl" onclick="handleRadioCheckboxChange()">
+             <option value="">----- select type-----</option>   
+            </select><br>
+            <p id="controltypee_error" class="error"></p>
+            <p id="controltypee_success"  class="success" ></p><br>
+            <label for="controlposition">Control Position</label><br>
+            <input type="text" name="controlposition" onkeydown="return (event.key.match(/[0-9]/) !== null || event.key === 'Backspace' || 
+            (event.key === 'a' && event.ctrlKey) || event.key === 'Delete') ;"  
+            id="controlposition" placeholder="Enter Control Position" /><br>
+            <p id="controlposition_error" class="error"></p>
+            <p id="controlposition_success"  class="success" ></p><br>
+            <label for="attrtibute">Attrtibute</label><br>
+            <input type="text" name="attrtibute" id="attrtibute" placeholder="Attrtibute Name" disabled /><br>
+    <p id="attrtibute_error" class="error"></p>
+      <p id="attrtibute_success" class="success"></p><br>  
+            <label>is Required</label>
+            <input type="checkbox" name="checkbox" id="checkbox" value="true"/><br>
+            <p id="selectCheckbox_error" class="error"></p>
+            <p id="selectCheckbox_success"  class="success" ></p><br>
+            <button type="submit" style="margin: 10px;" id ="addId">Add</button>&nbsp;&nbsp;
+            <button type="button" style="margin: 10px;" id ="updateId" onclick="updateForm()" >Update</button>&nbsp;&nbsp;
+            <button type="button" onclick="reset()">Reset</button>
+        </form>
+    </div>
+</div>
+    <script src="task6listOfControlarForm.js"></script>
+    </body>
+</html>
+
+
+
